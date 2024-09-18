@@ -27,13 +27,16 @@ Activate the Virtual Environment:
 
 ```bash
 pipenv shell
-exit
 ```
 
-### Test the Script
+### Test & install the `rembg` model
 
 ```bash
+# Downloads a 176mb model
 ./remove_bg.py ./example/shoe.jpg
+
+# When it's done;
+exit
 ```
 
 ## Usage 
@@ -55,20 +58,21 @@ Use the Automator app to create a Quick Action that runs the script on selected 
    - Set "Shell" to `/bin/bash`.
    - Set "Pass input" to as arguments.
    - Replace the default script content with the following, making sure to update the `PROJECT_DIR` with the full path to your project directory:
-    ```bash
-   #!/bin/bash
+   
+ ```bash
+#!/bin/bash
 
-    PROJECT_DIR="/path/to/remove_bg_script"
-    PIPENV_PATH="$(which pipenv)"
-    
-    cd "$PROJECT_DIR"
-    
-    for f in "$@"
-    do
-        "$PIPENV_PATH" run python remove_bg.py "$f"
-    done
-    ```
-   _You may run `which pipenv` manually and replace it with the output._
+ PROJECT_DIR="/path/to/remove_bg_script"
+ PIPENV_PATH="$(which pipenv)"
+ 
+ cd "$PROJECT_DIR"
+ 
+ for f in "$@"
+ do
+     "$PIPENV_PATH" run python remove_bg.py "$f"
+ done
+ ```
+_You may run `which pipenv` manually and replace it with the output._
 
 6. **Save the Quick Action** - Go to `File` > `Save` and name it `BGRemover`.
 7. **Test the Quick Action** - Right-click on an image file in Finder, navigate to Quick Actions, and select Remove BG. The script should process the image and remove its background.
